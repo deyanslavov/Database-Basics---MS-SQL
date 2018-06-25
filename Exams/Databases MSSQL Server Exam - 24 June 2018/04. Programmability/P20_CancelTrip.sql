@@ -1,0 +1,7 @@
+CREATE TRIGGER tr_DeleteTrip ON Trips INSTEAD OF DELETE
+AS
+BEGIN
+	UPDATE Trips
+	SET CancelDate = GETDATE()
+	WHERE Id IN (SELECT Id FROM deleted) AND CancelDate IS NULL
+END
